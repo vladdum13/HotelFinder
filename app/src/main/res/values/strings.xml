@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Booking</string>
+    <string name="signup">Sign Up</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="login">Log In</string>
+    <string name="login_title">Login</string>
+    <string name="go_back">Go Back</string>
+    <string name="new_user">New User</string>
+    <string name="register">Register</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_re_password">Verify Password</string>
+    <string name="prompt_number">Phone Number</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="date_select">Select Dates</string>
+    <string name="select_dates">Please select dates for your stay</string>
+    <string name="book">Book Your Stay</string>
+    <string name="old_password">Old Password</string>
+    <string name="change_password">Change Password</string>
+    <string-array name="names_spinner">
+        <item>Home</item>
+        <item>Reservations</item>
+        <item>Account</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="names_spinner2">
+        <item>Reservations</item>
+        <item>Home</item>
+        <item>Account</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="names_spinner3">
+        <item>Account</item>
+        <item>Home</item>
+        <item>Reservations</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="names_spinner4">
+        <item>Hotel</item>
+        <item>Home</item>
+        <item>Reservations</item>
+        <item>Account</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="names_spinner5">
+        <item>Room</item>
+        <item>Home</item>
+        <item>Reservations</item>
+        <item>Account</item>
+        <item>Logout</item>
+    </string-array>
+</resources>

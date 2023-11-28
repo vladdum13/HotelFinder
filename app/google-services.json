@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "984272449874",
+    "project_id": "hotelfinder-fba00",
+    "storage_bucket": "hotelfinder-fba00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984272449874:android:bf98d3dcf6dea68e718a8b",
+        "android_client_info": {
+          "package_name": "com.example.hotelfinder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArla4mVcP8gXCH6jAFTHTky1N3Bmvgheo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
