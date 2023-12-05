@@ -123,7 +123,7 @@ public class Account_change extends AppCompatActivity {
                     finishAffinity();
                 }
                 if (parentView.getItemAtPosition(position).toString().equals("Home")) {
-                    Intent intent = new Intent(getApplicationContext(), SearchPage.class);
+                    Intent intent = new Intent(getApplicationContext(), MapView.class);
                     startActivity(intent);
                     finish();
                 }

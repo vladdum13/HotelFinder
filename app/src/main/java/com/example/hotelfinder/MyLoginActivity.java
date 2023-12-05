@@ -51,7 +51,7 @@ public class MyLoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Intent intent = new Intent(getApplicationContext(), SearchPage.class);
+                                    Intent intent = new Intent(getApplicationContext(), MapView.class);
                                     startActivity(intent);
                                     finishAffinity();
                                 } else {

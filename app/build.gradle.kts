@@ -24,6 +24,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 
     buildTypes {
@@ -54,4 +55,5 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.esri:arcgis-maps-kotlin:200.2.0")
+    implementation("androidx.multidex:multidex:2.0.1")
 }
