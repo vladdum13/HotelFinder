@@ -4,26 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/babyblue"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/main_title"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="220dp"
-        android:background="@drawable/border_bottom"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/black"
-        android:textSize="34sp"
+    <ImageView
+        android:id="@+id/myImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="84dp"
+        android:src="@drawable/mainphoto"
+        app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,26 +28,46 @@
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/login"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_title" />
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="@font/montserrat_subrayada_bold"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/blue"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myImageView" />
 
     <Button
         android:id="@+id/launch_signup"
         style="@style/Widget.Material3.Button.OutlinedButton.Icon"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/signup"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/launch_login"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.056" />
 </androidx.constraintlayout.widget.ConstraintLayout>

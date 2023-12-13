@@ -4,23 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/babyblue"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MySignUpActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="222dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="104dp"
+        android:src="@drawable/signup"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/signup_title"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/border_bottom"
+        android:layout_marginTop="44dp"
         android:text="@string/register"
+        android:fontFamily="@font/montserrat_subrayada_bold"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -33,13 +45,16 @@
         android:layout_width="180dp"
         android:layout_height="60dp"
         android:layout_gravity="start"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/signup"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_phone"
+        app:strokeColor="@color/blue" />
 
     <Button
         android:id="@+id/back_button2"
@@ -47,75 +62,83 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/go_back"
-        android:textColor="@color/black"
+        android:textColor="@color/notblack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_button"
-        app:layout_constraintVertical_bias="0.034" />
-
-    <EditText
-        android:id="@+id/signup_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:ems="10"
-        android:hint="@string/prompt_name"
-        android:inputType="text"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_title" />
-
-    <EditText
-        android:id="@+id/signup_verify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/prompt_re_password"
-        android:inputType="textPassword"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_password" />
-
-    <EditText
-        android:id="@+id/signup_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/prompt_number"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_email" />
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@color/blue" />
 
     <EditText
         android:id="@+id/signup_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat_extralight"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
-        android:textColor="@color/black"
+        android:textColor="@color/notblack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_verify" />
 
     <EditText
+        android:id="@+id/signup_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat_extralight"
+        android:hint="@string/prompt_number"
+        android:inputType="phone"
+        android:textColor="@color/notblack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_email" />
+
+    <EditText
+        android:id="@+id/signup_verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat_extralight"
+        android:hint="@string/prompt_re_password"
+        android:inputType="textPassword"
+        android:textColor="@color/notblack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_password" />
+
+    <EditText
+        android:id="@+id/signup_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat_extralight"
+        android:hint="@string/prompt_name"
+        android:inputType="text"
+        android:textColor="@color/notblack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_title" />
+
+    <EditText
         android:id="@+id/signup_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat_extralight"
         android:hint="@string/prompt_password"
         android:inputType="textPassword"
-        android:textColor="@color/black"
+        android:textColor="@color/notblack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_name" />

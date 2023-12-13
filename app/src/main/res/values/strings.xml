@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Booking</string>
+    <string name="app_name">Hoteliq</string>
     <string name="signup">Sign Up</string>
     <string name="sign_out">Sign Out</string>
     <string name="login">Log In</string>
