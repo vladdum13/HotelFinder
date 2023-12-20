@@ -78,6 +78,14 @@ public class SearchPage extends AppCompatActivity {
         LinearLayout.LayoutParams layoutParams_desc = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        ArrayList<Hotel> hotelArrayList = new ArrayList<>();
+
+        for (Hotel hotel: hotelArrayList) {
+            System.out.println(hotel.getLocation());
+        }
+
+        int size = hotelArrayList.size();
+
         db.collection("hotels").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

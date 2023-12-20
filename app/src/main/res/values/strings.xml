@@ -24,6 +24,7 @@
     <string name="book">Book Your Stay</string>
     <string name="old_password">Old Password</string>
     <string name="change_password">Change Password</string>
+    <string name="location_permissions_denied">Permissions Denied</string>
     <string-array name="names_spinner">
         <item>Home</item>
         <item>Reservations</item>

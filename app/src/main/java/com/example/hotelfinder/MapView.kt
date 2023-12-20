@@ -1,6 +1,7 @@
 package com.example.hotelfinder
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,13 +11,31 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.arcgismaps.ApiKey
 import com.arcgismaps.ArcGISEnvironment
+import com.arcgismaps.Color
+import com.arcgismaps.geometry.Point
+import com.arcgismaps.geometry.SpatialReference
+import com.arcgismaps.location.LocationDisplayAutoPanMode
 import com.arcgismaps.mapping.ArcGISMap
 import com.arcgismaps.mapping.BasemapStyle
-import com.arcgismaps.mapping.Viewpoint
+import com.arcgismaps.mapping.symbology.SimpleLineSymbol
+import com.arcgismaps.mapping.symbology.SimpleLineSymbolStyle
+import com.arcgismaps.mapping.symbology.SimpleMarkerSymbol
+import com.arcgismaps.mapping.symbology.SimpleMarkerSymbolStyle
+import com.arcgismaps.mapping.view.Graphic
+import com.arcgismaps.mapping.view.GraphicsOverlay
+import com.arcgismaps.mapping.view.LocationDisplay
 import com.arcgismaps.mapping.view.MapView
+import com.example.hotelfinder.data.Hotel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.launch
 
 class MapView : AppCompatActivity() {
 
@@ -32,7 +51,23 @@ class MapView : AppCompatActivity() {
         findViewById(R.id.toolbar)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private val locationDisplay: LocationDisplay by lazy {
+        mapView.locationDisplay
+    }
+
+    private val storageReference: StorageReference by lazy {
+        FirebaseStorage.getInstance().getReference()
+    }
+
+    private val db: FirebaseFirestore by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
+    private val auth: FirebaseAuth by lazy {
+        FirebaseAuth.getInstance()
+    }
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_view)
 
@@ -82,6 +117,8 @@ class MapView : AppCompatActivity() {
         setApiKey()
 
         setupMap()
+
+            placePoints()
     }
 
     private fun setupMap() {
@@ -90,7 +127,21 @@ class MapView : AppCompatActivity() {
         // set the map to be displayed in the layout's MapView
         mapView.map = map
 
-        mapView.setViewpoint(Viewpoint(34.0270, -118.8050, 72000.0))
+        //mapView.setViewpoint(Viewpoint(34.0270, -118.8050, 72000.0))
+
+        // LocationProvider requires an Android Context to properly interact with Android system
+        ArcGISEnvironment.applicationContext = applicationContext
+        // set the autoPanMode
+        locationDisplay.setAutoPanMode(LocationDisplayAutoPanMode.Recenter)
+
+        lifecycleScope.launch {
+            // start the map view's location display
+            locationDisplay.dataSource.start()
+                .onFailure {
+                    // check permissions to see if failure may be due to lack of permissions
+                    requestPermissions()
+                }
+        }
     }
 
     private fun setApiKey() {
@@ -99,8 +150,105 @@ class MapView : AppCompatActivity() {
         ArcGISEnvironment.apiKey = ApiKey.create("AAPKd4078e3031b1426ebf97df21f4ee78a6yrH-mFDpUhiYurE2MF3l7I2jkeaqC6CFXU_E63Dlni9wa2b9ZMPr7eFvhlS45kmA")
     }
 
+    private fun placePoints() {
+        val hotelArrayList = java.util.ArrayList<Hotel>()
+        db.collection("hotels").get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result) {
+                        val hotel = document.toObject(Hotel::class.java)
+                        hotelArrayList.add(hotel)
+                    }
+                    val graphicsOverlay = GraphicsOverlay()
+                    mapView.graphicsOverlays.add(graphicsOverlay)
+
+                    for (hotel in hotelArrayList) {
+                        // create a point geometry with a location and spatial reference
+                        // Point(latitude, longitude, spatial reference)
+                        val point = Point(hotel.location.longitude, hotel.location.latitude, SpatialReference.wgs84())
+
+                        // create a point symbol that is an small red circle
+                        val simpleMarkerSymbol = SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.red, 15f)
+
+                        // create a blue outline symbol and assign it to the outline property of the simple marker symbol
+                        val blueOutlineSymbol = SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.fromRgba(0, 0, 255), 3f)
+                        simpleMarkerSymbol.outline = blueOutlineSymbol
+
+                        // create a graphic with the point geometry and symbol
+                        val pointGraphic = Graphic(point, simpleMarkerSymbol)
+
+                        // add the point graphic to the graphics overlay
+                        graphicsOverlay.graphics.add(pointGraphic)
+                    }
+                } else {
+                    Log.w("hotel_info_err", "Error getting documents.", task.exception)
+                }
+            }
+    }
+
     private fun showError(message: String) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
         Log.e(localClassName, message)
     }
+
+    private fun requestPermissions() {
+        // coarse location permission
+        val permissionCheckCoarseLocation =
+            ContextCompat.checkSelfPermission(
+                this@MapView,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) ==
+                    PackageManager.PERMISSION_GRANTED
+        // fine location permission
+        val permissionCheckFineLocation =
+            ContextCompat.checkSelfPermission(
+                this@MapView,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) ==
+                    PackageManager.PERMISSION_GRANTED
+
+        // if permissions are not already granted, request permission from the user
+        if (!(permissionCheckCoarseLocation && permissionCheckFineLocation)) {
+            ActivityCompat.requestPermissions(
+                this@MapView,
+                arrayOf(
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ),
+                2
+            )
+        } else {
+            // permission already granted, so start the location display
+            lifecycleScope.launch {
+                locationDisplay.dataSource.start()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            // if request is cancelled, the results array is empty
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                lifecycleScope.launch {
+                    locationDisplay.dataSource.start()
+                }
+            } else {
+                val errorMessage = getString(R.string.location_permissions_denied)
+                showError(errorMessage)
+            }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            val intent : Intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finishAffinity()
+        }
+    }
+
 }
